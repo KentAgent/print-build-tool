@@ -10,11 +10,12 @@ const userInput = (props) => {
 
     return (
         <div>
-            <input 
-            type='number' 
-            style={inputStyle}
-            onChange={props.onChange}
-            value={props.value} />
+            <input
+                type='number'
+                style={inputStyle}
+                onChange={props.onChange}
+                value={props.value}
+            />
         </div>
     )
 }

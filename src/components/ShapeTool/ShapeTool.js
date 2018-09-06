@@ -63,7 +63,7 @@ export default class ShapeTool extends Component {
                         height={this.state.height}
                         fill={{ color: Palette.light }}
                         stroke={{ color: Palette.veryDark }}
-                        strokeWidth={this.state.stroke}
+                        strokeWidth={0}
                     />
                 )
             case shapes.circle:
@@ -149,9 +149,21 @@ export default class ShapeTool extends Component {
                 {this.renderTools()}
 
                 <div style={styles.canvasContainer}>
-                    <div style={{ border: '2px solid black', borderWidth: '${this.state.stroke}px' , borderColor: '#000', margin: 0, padding: 0 }}>
-                        {this.renderShape()}
+                    <div style={{
+                        width: this.state.width - this.state.stroke * 2,
+                        height: this.state.height - this.state.stroke * 2,
+                        border: '0px solid black',
+                        borderWidth: this.state.stroke + 'px',
+                        borderColor: '#000',
+                        margin: 0,
+                        padding: 0,
+                        position: 'absolute',
+                        zIndex: 5
+                    }}>
+                     
                     </div>
+                    {this.renderShape()}
+
                 </div>
 
             </div>
@@ -176,7 +188,8 @@ const styles = {
         padding: 30
     },
     shape: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        position: 'absolute'
     },
     toolsContainer: {
         display: 'flex',

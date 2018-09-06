@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Rectangle, Circle, Triangle, CornerBox } from 'react-shapes'
+import { Rectangle, Circle, Triangle } from './src/Shapes'
 import { Palette } from '../../assets/palette/Palette'
 import UserInput from '../UserInput/UserInput'
 
@@ -10,9 +10,9 @@ export default class ShapeTool extends Component {
         this.state = {
             width: 200,
             height: 200,
-            stroke: 1,
+            stroke: 0,
             radius: 50,
-            selectedShape: shapes.rectangle
+            selectedShape: shapes.circle
         }
 
         this.renderShape = this.renderShape.bind(this)
@@ -21,7 +21,7 @@ export default class ShapeTool extends Component {
     onWidthChange(newValue) {
         console.log('onWidthChange Value: ', newValue.target.value)
 
-        const intValue = parseInt(newValue.target.value)
+        const intValue = parseInt(newValue.target.value, 10)
 
         this.setState({ width: intValue })
 
@@ -30,16 +30,16 @@ export default class ShapeTool extends Component {
     onHeightChange(newValue) {
         console.log('onHeightChange Value: ', newValue.target.value)
 
-        const intValue = parseInt(newValue.target.value)
+        const intValue = parseInt(newValue.target.value, 10)
 
-        this.setState({ height: intValue })
+        this.setState({ height: intValue, stroke: this.state.stroke })
 
     }
 
     onRadiusChange(newValue) {
         console.log('onRadiusChange Value: ', newValue.target.value)
 
-        const intValue = parseInt(newValue.target.value)
+        const intValue = parseInt(newValue.target.value, 10)
 
         this.setState({ radius: intValue })
     }
@@ -47,7 +47,7 @@ export default class ShapeTool extends Component {
     onStrokeChange(newValue) {
         console.log('onStrokeChange Value: ', newValue.target.value)
 
-        const intValue = parseInt(newValue.target.value)
+        const intValue = parseInt(newValue.target.value, 10)
 
         this.setState({ stroke: intValue })
 
@@ -63,7 +63,7 @@ export default class ShapeTool extends Component {
                         height={this.state.height}
                         fill={{ color: Palette.light }}
                         stroke={{ color: Palette.veryDark }}
-                        strokeWidth={0}
+                        strokeWidth={this.state.stroke}
                     />
                 )
             case shapes.circle:
@@ -72,7 +72,8 @@ export default class ShapeTool extends Component {
                         r={this.state.radius}
                         fill={{ color: Palette.light }}
                         stroke={{ color: Palette.veryDark }}
-                        strokeWidth={this.state.stroke} />
+                        strokeWidth={this.state.stroke} 
+                    />
                 )
             case shapes.triangle:
                 return (
@@ -149,19 +150,7 @@ export default class ShapeTool extends Component {
                 {this.renderTools()}
 
                 <div style={styles.canvasContainer}>
-                    <div style={{
-                        width: this.state.width - this.state.stroke * 2,
-                        height: this.state.height - this.state.stroke * 2,
-                        border: '0px solid black',
-                        borderWidth: this.state.stroke + 'px',
-                        borderColor: '#000',
-                        margin: 0,
-                        padding: 0,
-                        position: 'absolute',
-                        zIndex: 5
-                    }}>
-                     
-                    </div>
+                    
                     {this.renderShape()}
 
                 </div>
@@ -170,6 +159,18 @@ export default class ShapeTool extends Component {
         )
     }
 }
+
+// <div style={{
+//     width: this.state.width - this.state.stroke * 2,
+//     height: this.state.height - this.state.stroke * 2,
+//     border: '0px solid black',
+//     borderWidth: this.state.stroke + 'px',
+//     borderColor: '#000',
+//     margin: 0,
+//     padding: 0,
+//     position: 'absolute',
+//     zIndex: 5
+// }} />
 
 const styles = {
     container: {
@@ -185,7 +186,9 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         border: '1px solid black',
-        padding: 30
+        padding: 30,
+        zIndex: 5,
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
     },
     shape: {
         alignSelf: 'center',

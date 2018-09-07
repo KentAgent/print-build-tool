@@ -12,7 +12,7 @@ export default class ShapeTool extends Component {
             height: 200,
             stroke: 0,
             radius: 50,
-            selectedShape: shapes.circle
+            selectedShape: shapes.rectangle
         }
 
         this.renderShape = this.renderShape.bind(this)
@@ -151,6 +151,7 @@ export default class ShapeTool extends Component {
 
                 <div style={styles.canvasContainer}>
                     
+                     
                     {this.renderShape()}
 
                 </div>

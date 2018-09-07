@@ -4,7 +4,14 @@ import styleSvg from './utils/styleSvg';
 
 export class SVGComponent extends React.Component {
     render() {
-        return <svg {...this.props}>{this.props.children}</svg>
+        return (
+            <svg
+                style={{ boxShadow: '0 3px 2px rgba(0, 0, 0, 0.3)' }}
+                {...this.props}
+            >
+                {this.props.children}
+            </svg>
+        )
     }
 }
 export class Rectangle extends React.Component {
@@ -19,14 +26,15 @@ export class Rectangle extends React.Component {
             <SVGComponent height={height} width={width}>
                 <rect
                     {...props}
-                    height={this.props.height - this.props.strokeWidth * 2}
-                    width={this.props.width - this.props.strokeWidth * 2}
-                    x={this.props.strokeWidth * 2}
-                    y={this.props.strokeWidth * 2}
+                    height={this.props.height - strokeWidth * 2}
+                    width={this.props.width - strokeWidth * 2}
+                    x={strokeWidth * 2}
+                    y={strokeWidth * 2}
                 >
                     {this.props.children}
                 </rect>
-            </SVGComponent>)
+            </SVGComponent>
+        )
     }
 }
 export class Circle extends React.Component {
@@ -44,7 +52,7 @@ export class Circle extends React.Component {
             <SVGComponent height={height} width={width}>
                 <circle
                     {...props}
-                    r={r - this.props.strokeWidth}
+                    r={r - strokeWidth}
                     cx={cx}
                     cy={cy}
                 >
